@@ -33,6 +33,7 @@ class Hiera
 
             specs.each do |spec|
               next if @@plugins.include? spec
+              spec = Gem::VERSION >= "3.3.7" ? spec.to_spec() : spec
 
               dependency = spec.dependencies.find { |d| d.name == "hiera-eyaml" }
               next if dependency && !dependency.requirement.satisfied_by?( this_version )
